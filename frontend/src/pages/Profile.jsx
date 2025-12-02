@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 import { FaCamera, FaUser, FaPhone, FaMapMarkerAlt, FaBriefcase, FaBuilding, FaGlobe, FaFileAlt, FaSave, FaSpinner, FaPlus, FaTrash } from 'react-icons/fa'
 import { MdEmail, MdWork } from 'react-icons/md'
 import Nav from '../component/Nav'
-import { MdEmail } from "react-icons/md";
 
 function Profile() {
   const userData = useSelector(s => s.user.userData)
