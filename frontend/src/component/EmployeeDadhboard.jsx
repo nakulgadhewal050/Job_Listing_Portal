@@ -86,6 +86,7 @@ function EmployeeDashboard() {
     }
 
     try {
+      setLoading(true)
       if (editingJob) {
         // Update job
         await axios.put(`${serverUrl}/api/jobs/${editingJob._id}`, formData, { withCredentials: true })
@@ -98,6 +99,7 @@ function EmployeeDashboard() {
       setShowModal(false)
       fetchJobs()
     } catch (error) {
+      setLoading(false)
       console.error('Save job error:', error)
       toast.error(error.response?.data?.message || 'Failed to save job')
     }
