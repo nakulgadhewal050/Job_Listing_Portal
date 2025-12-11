@@ -426,7 +426,7 @@ function EmployeeDashboard() {
                   className='flex items-center gap-2 px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-medium shadow-lg transition-all cursor-pointer'
                 >
                   <FaSave />
-                  {editingJob ? 'Update Job' : 'Create Job'}
+                  {loading ? (editingJob ? 'Updating Job...' : 'Creating Job...') : (editingJob ? 'Update Job' : 'Create Job')}
                 </button>
               </div>
             </form>
