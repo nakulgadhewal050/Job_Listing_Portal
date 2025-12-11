@@ -3,7 +3,7 @@ import Nav from './Nav'
 import axios from 'axios'
 import { serverUrl } from '../App'
 import { toast } from 'react-toastify'
-import { FaPlus, FaEdit, FaTrash, FaMapMarkerAlt, FaDollarSign, FaTimes, FaSave, FaUsers, FaEye, FaFileAlt } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaMapMarkerAlt, FaDollarSign, FaTimes, FaSave, FaUsers, FaEye, FaFileAlt, FaSpinner } from 'react-icons/fa'
 import { MdWork } from 'react-icons/md'
 
 function EmployeeDashboard() {
@@ -426,7 +426,17 @@ function EmployeeDashboard() {
                   className='flex items-center gap-2 px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-lg font-medium shadow-lg transition-all cursor-pointer'
                 >
                   <FaSave />
-                  {loading ? (editingJob ? 'Updating Job...' : 'Creating Job...') : (editingJob ? 'Update Job' : 'Create Job')}
+                  {loading
+                    ? (editingJob ? (
+                        <>
+                          <FaSpinner className='animate-spin' /> Updating Job...
+                        </>
+                      ) : (
+                        <>
+                          <FaSpinner className='animate-spin' /> Creating Job...
+                        </>
+                      ))
+                    : (editingJob ? 'Update Job' : 'Create Job')}
                 </button>
               </div>
             </form>
