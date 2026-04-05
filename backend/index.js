@@ -14,6 +14,8 @@ import cors from 'cors';
 import userRouter from './Router/userRoute.js';
 
 
+
+
 app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -22,7 +24,6 @@ app.use(cookieParser());
 app.use(cors({
     origin: function (origin, callback) {
         const allowedOrigins = [
-            'https://job-listing-portal-frontend-9tvf.onrender.com',
             'http://localhost:5173'
         ];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
