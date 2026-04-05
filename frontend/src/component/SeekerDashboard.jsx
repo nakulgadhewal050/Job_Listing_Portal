@@ -111,7 +111,7 @@ function SeekerDashboard() {
           { jobId },
           { withCredentials: true },
         );
-        setSavedJobs(prev => new Set([...prev, JobId])) 
+        setSavedJobs((prev) => new Set([...prev, JobId]));
         toast.success("Job saved successfully!");
       }
     } catch (error) {

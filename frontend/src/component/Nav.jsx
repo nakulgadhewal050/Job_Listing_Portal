@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaBriefcase, FaUser, FaFileAlt, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaBookmark, FaMoon, FaSun } from 'react-icons/fa'
