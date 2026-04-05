@@ -1,1 +1,24 @@
+# Environment variables (sensitive data - passwords, API keys)
 .env
+.env.local
+.env.development
+.env.production
+
+# Dependencies (npm install se wapas ban jaate hain)
+node_modules/
+
+# Upload folder (user uploaded files)
+uploads/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
