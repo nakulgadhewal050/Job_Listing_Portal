@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import Nav from './Nav'
 import axios from 'axios'
 import { serverUrl } from '../App'
 import { toast } from 'react-toastify'
+import { useSelector } from 'react-redux'
 import { FaPlus, FaEdit, FaTrash, FaMapMarkerAlt, FaDollarSign, FaTimes, FaSave, FaUsers, FaEye, FaFileAlt, FaSpinner } from 'react-icons/fa'
 import { MdWork } from 'react-icons/md'
 
@@ -25,9 +27,13 @@ function EmployeeDashboard() {
     status: 'active'
   })
 
+  const { userData } = useSelector((state) => state.user);
+
   useEffect(() => {
-    fetchJobs()
-  }, [])
+    if (userData) {
+      fetchJobs()
+    }
+  }, [userData])
 
   const fetchJobs = async () => {
     setLoading(true)

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import axios from "axios";
 import { serverUrl } from "../App";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   FaSearch,
@@ -32,11 +33,20 @@ function SeekerDashboard() {
   const [appliedJobs, setAppliedJobs] = useState(new Set());
   const [savedJobs, setSavedJobs] = useState(new Set());
 
+  const { userData } = useSelector((state) => state.user);
+
+  // Public API — user ki zaroorat nahi
   useEffect(() => {
     fetchJobs();
-    checkAppliedJobs();
-    fetchSavedJobIds();
   }, []);
+
+  // Protected APIs — sirf tab call karo jab userData available ho
+  useEffect(() => {
+    if (userData) {
+      checkAppliedJobs();
+      fetchSavedJobIds();
+    }
+  }, [userData]);
 
   useEffect(() => {
     applyFilters();
