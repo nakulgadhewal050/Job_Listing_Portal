@@ -14,6 +14,12 @@ const getTokenCookieOptions = (maxAge = 7 * 24 * 60 * 60 * 1000) => {
     };
 };
 
+const sanitizeUser = (user) => {
+    const userObj = user.toObject ? user.toObject() : { ...user };
+    delete userObj.password;
+    return userObj;
+};
+
 export const Signup = async (req, res) => {
     try {
         const { fullname, email, password, phone, role } = req.body;
@@ -56,7 +62,7 @@ export const Signup = async (req, res) => {
 
         res.cookie("token", token, getTokenCookieOptions())
 
-        res.status(201).json(user);
+        return res.status(201).json({ ...sanitizeUser(user), token });
 
     } catch (error) {
         console.log("signin error:", error);
@@ -85,7 +91,7 @@ export const Login = async (req, res) => {
         res.cookie("token", token, getTokenCookieOptions())
 
 
-        return res.status(200).json(user);
+        return res.status(200).json({ ...sanitizeUser(user), token });
 
     } catch (error) {
 
@@ -112,7 +118,7 @@ export const googleAuth = async (req, res) => {
 
             res.cookie("token", token, getTokenCookieOptions())
 
-            return res.status(200).json(user);
+            return res.status(200).json({ ...sanitizeUser(user), token });
         }
 
         if (!role) {
@@ -131,7 +137,7 @@ export const googleAuth = async (req, res) => {
         res.cookie("token", token, getTokenCookieOptions())
 
 
-        return res.status(200).json(user);
+        return res.status(200).json({ ...sanitizeUser(user), token });
 
     } catch (error) {
         console.error("Google Auth Error:", error);

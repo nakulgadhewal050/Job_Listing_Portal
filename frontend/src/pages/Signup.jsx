@@ -54,7 +54,14 @@ function Signup() {
       const result = await axios.post(`${serverUrl}/api/auth/signup`, {
         fullname: name, email, password, phone, role
       }, { withCredentials: true });
-      dispatch(setUserData(result.data))
+
+      const token = result.data?.token
+      if (token) {
+        localStorage.setItem('authToken', token)
+      }
+
+      const { token: _token, ...user } = result.data || {}
+      dispatch(setUserData(user))
       console.log("signup successfully")
       setErrors({});
       setLoading(false);
@@ -90,8 +97,14 @@ function Signup() {
         phone: result.user.phoneNumber,
         role: role
       }, { withCredentials: true });
-      
-      dispatch(setUserData(data));
+
+      const token = data?.token
+      if (token) {
+        localStorage.setItem('authToken', token)
+      }
+
+      const { token: _token, ...user } = data || {}
+      dispatch(setUserData(user));
       console.log("Google signup successful");
       
       toast.success('Signup successful!', {
