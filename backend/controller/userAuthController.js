@@ -2,6 +2,18 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/token.js";
 
+const getTokenCookieOptions = (maxAge = 7 * 24 * 60 * 60 * 1000) => {
+    const isProduction = process.env.NODE_ENV === "production";
+
+    return {
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        httpOnly: true,
+        path: "/",
+        maxAge
+    };
+};
+
 export const Signup = async (req, res) => {
     try {
         const { fullname, email, password, phone, role } = req.body;
@@ -42,12 +54,7 @@ export const Signup = async (req, res) => {
 
         const token = await generateToken(user._id);
 
-        res.cookie("token", token, {
-            secure: false,
-            sameSite: "none",
-            httpOnly: false,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("token", token, getTokenCookieOptions())
 
         res.status(201).json(user);
 
@@ -75,12 +82,7 @@ export const Login = async (req, res) => {
 
         const token = await generateToken(user._id);
 
-        res.cookie("token", token, {
-            secure: false,
-            sameSite: "none",
-            httpOnly: false,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("token", token, getTokenCookieOptions())
 
 
         return res.status(200).json(user);
@@ -93,12 +95,7 @@ export const Login = async (req, res) => {
 
 export const Logout = async (req, res) => {
     try {
-        res.cookie("token", "", {
-            secure: false,
-            sameSite: "none",
-            httpOnly: false,
-            maxAge: 0
-        })
+        res.clearCookie("token", getTokenCookieOptions(0))
         res.status(200).json({ message: "Logged out successfully" })
     } catch (error) {
         res.status(500).json({ message: "Error in logout" })
@@ -113,13 +110,7 @@ export const googleAuth = async (req, res) => {
         if (user) {
             const token = await generateToken(user._id);
 
-            res.cookie("token", token, {
-                secure: false,
-                sameSite: "none",
-                httpOnly: false,
-                path: "/",
-                maxAge: 7 * 24 * 60 * 60 * 1000
-            })
+            res.cookie("token", token, getTokenCookieOptions())
 
             return res.status(200).json(user);
         }
@@ -137,13 +128,7 @@ export const googleAuth = async (req, res) => {
 
         const token = await generateToken(user._id);
 
-        res.cookie("token", token, {
-            secure: false,
-            sameSite: "none",
-            httpOnly: false,
-            path: "/",
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+        res.cookie("token", token, getTokenCookieOptions())
 
 
         return res.status(200).json(user);
