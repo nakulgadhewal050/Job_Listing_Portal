@@ -14,7 +14,7 @@ import MyApplication from './pages/MyApplication.jsx';
 import Applications from './pages/Applications.jsx';
 import SavedJobs from './pages/SavedJobs.jsx';
 
-export const serverUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:8080";
+export const serverUrl = import.meta.env.VITE_SERVER_URL ;
 
 
 
