@@ -29,7 +29,11 @@ function Profile() {
       if (!userData) return
       setLoading(true)
       try {
-        const res = await axios.get(`${serverUrl}/api/profile/me`, { withCredentials: true })
+        const token = localStorage.getItem('jwt');
+        const res = await axios.get(`${serverUrl}/api/profile/me`, {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` },
+        })
         setData(prev => ({ ...prev, ...res.data }))
       } catch (e) {
         console.error('Fetch profile error:', e)
@@ -50,7 +54,11 @@ function Profile() {
     e.preventDefault()
     setSaving(true)
     try {
-      const res = await axios.put(`${serverUrl}/api/profile/me`, data, { withCredentials: true })
+      const token = localStorage.getItem('jwt');
+      const res = await axios.put(`${serverUrl}/api/profile/me`, data, {
+        withCredentials: true,
+        headers: { Authorization: `Bearer ${token}` },
+      })
       if (res.data?.user) {
         setData(prev => ({ ...prev, ...res.data.user }))
       } else {
@@ -84,9 +92,10 @@ function Profile() {
     form.append('photo', file)
     
     try {
+      const token = localStorage.getItem('jwt');
       const res = await axios.post(`${serverUrl}/api/profile/photo`, form, {
         withCredentials: true,
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` },
       })
       
       if (res.data?.user) {
@@ -123,9 +132,10 @@ function Profile() {
     form.append('resume', file)
     
     try {
+      const token = localStorage.getItem('jwt');
       const res = await axios.post(`${serverUrl}/api/profile/resume`, form, {
         withCredentials: true,
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` },
       })
       
       if (res.data?.resumeUrl) {

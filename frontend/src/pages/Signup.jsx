@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react';
 import { FaRegEyeSlash, FaRegEye, FaUser, FaEnvelope, FaPhone, FaLock, FaBriefcase, FaUserTie } from "react-icons/fa";
 import axios from 'axios';
@@ -53,7 +54,8 @@ function Signup() {
       const result = await axios.post(`${serverUrl}/api/auth/signup`, {
         fullname: name, email, password, phone, role
       }, { withCredentials: true });
-      dispatch(setUserData(result.data))
+      localStorage.setItem('jwt', result.data.token);
+      dispatch(setUserData(result.data.user))
       console.log("signup successfully")
       setErrors({});
       setLoading(false);
@@ -90,7 +92,8 @@ function Signup() {
         role: role
       }, { withCredentials: true });
       
-      dispatch(setUserData(data));
+      localStorage.setItem('jwt', data.token);
+      dispatch(setUserData(data.user));
       console.log("Google signup successful");
       
       toast.success('Signup successful!', {
@@ -352,4 +355,4 @@ function Signup() {
 }
 
 
-export default Signup 
+export default Signup

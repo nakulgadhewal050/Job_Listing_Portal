@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaRegEyeSlash, FaRegEye, FaEnvelope, FaLock, FaSignInAlt } from "react-icons/fa";
@@ -43,7 +44,9 @@ function Login() {
         email, password
       }, { withCredentials: true });
 
-      dispatch(setUserData(result.data))
+      // Token localStorage mein save karo
+      localStorage.setItem('jwt', result.data.token);  
+dispatch(setUserData(result.data.user));
       console.log("login successfully")
       setErrors({});
       setLoading(false);
@@ -84,7 +87,8 @@ function Login() {
         fullname: result.user.displayName,
       }, { withCredentials: true });
 
-      dispatch(setUserData(data));
+      localStorage.setItem('jwt', data.token);
+      dispatch(setUserData(data.user));
 
       toast.success('Login successful!', {
         position: "top-right",
@@ -258,4 +262,4 @@ function Login() {
 }
 
 
-export default Login 
+export default Login

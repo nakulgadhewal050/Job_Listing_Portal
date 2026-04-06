@@ -29,8 +29,10 @@ function SavedJobs() {
   const fetchSavedJobs = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('jwt');
       const res = await axios.get(`${serverUrl}/api/saved-jobs/my-saved-jobs`, {
         withCredentials: true,
+         headers: { Authorization: `Bearer ${token}` },
       });
       setSavedJobs(res.data);
     } catch (error) {
@@ -45,8 +47,12 @@ function SavedJobs() {
     if (!window.confirm("Remove this job from saved jobs?")) return;
 
     try {
+      const token = localStorage.getItem('jwt');
       await axios.delete(`${serverUrl}/api/saved-jobs/unsave/${jobId}`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       toast.success("Job removed from saved jobs");
       setSavedJobs((prev) => prev.filter((saved) => saved.jobId._id !== jobId));
