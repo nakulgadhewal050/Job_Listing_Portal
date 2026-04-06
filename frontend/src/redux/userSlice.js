@@ -4,11 +4,13 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         userData: null,
+        isLoading: true,   
     },
 
     reducers: {
         setUserData: (state, action) => {
             state.userData = action.payload;
+            state.isLoading = false;   
         },
     }
 })
