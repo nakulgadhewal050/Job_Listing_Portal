@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// CORS configuration for production
+
 app.use(
   cors({
     origin: function (origin, callback) {
