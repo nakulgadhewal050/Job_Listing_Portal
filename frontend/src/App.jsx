@@ -20,16 +20,9 @@ export const serverUrl = import.meta.env.VITE_SERVER_URL ;
 
 function App() {
   getCurrentUser();
-  const { userData, isLoading } = useSelector((state) => state.user);
+  const { userData } = useSelector((state) => state.user);
 
- 
-  if (isLoading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+
 
   return (
     <>
