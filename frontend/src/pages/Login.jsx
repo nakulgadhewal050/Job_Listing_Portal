@@ -44,9 +44,7 @@ function Login() {
         email, password
       }, { withCredentials: true });
 
-      // Token localStorage mein save karo
-      localStorage.setItem('jwt', result.data.token);  
-      dispatch(setUserData(result.data.user));
+      dispatch(setUserData(result.data))
       console.log("login successfully")
       setErrors({});
       setLoading(false);
@@ -87,8 +85,7 @@ function Login() {
         fullname: result.user.displayName,
       }, { withCredentials: true });
 
-      localStorage.setItem('jwt', data.token);
-      dispatch(setUserData(data.user));
+      dispatch(setUserData(data));
 
       toast.success('Login successful!', {
         position: "top-right",
@@ -262,4 +259,4 @@ function Login() {
 }
 
 
-export default Login
+export default Login 

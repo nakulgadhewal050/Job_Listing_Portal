@@ -57,12 +57,10 @@ function Applications() {
   const fetchAllApplications = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('jwt');
       const res = await axios.get(
         `${serverUrl}/api/applications/employer/all`,
         {
           withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
         },
       );
       setApplications(res.data);
@@ -77,14 +75,10 @@ function Applications() {
 
   const updateApplicationStatus = async (id, newStatus) => {
     try {
-      const token = localStorage.getItem('jwt');
       await axios.put(
         `${serverUrl}/api/applications/${id}/status`,
         { status: newStatus },
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
-        },
+        { withCredentials: true },
       );
       toast.success("Application status updated successfully");
       fetchAllApplications();

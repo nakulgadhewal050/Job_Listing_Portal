@@ -13,16 +13,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import MyApplication from './pages/MyApplication.jsx';
 import Applications from './pages/Applications.jsx';
 import SavedJobs from './pages/SavedJobs.jsx';
-
-export const serverUrl = import.meta.env.VITE_SERVER_URL ;
+export const serverUrl = import.meta.env.VITE_SERVER_URL;
 
 
 
 function App() {
   getCurrentUser();
-  const { userData } = useSelector((state) => state.user);
-
-
+  const {userData} = useSelector((state) => state.user);
 
   return (
     <>

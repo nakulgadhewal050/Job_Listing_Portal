@@ -5,7 +5,7 @@ import { serverUrl } from "../App";
 import { setUserData } from "../redux/userSlice";
 
 
-function getCurrentUser() {
+function GetCurrentUser() {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,6 +14,7 @@ function getCurrentUser() {
                 const result = await axios.get(`${serverUrl}/api/user/currentuser`, { withCredentials: true });
                 dispatch(setUserData(result.data));
             } catch (error) {
+                console.log(error)
                 dispatch(setUserData(null));
             }
         }
@@ -21,4 +22,4 @@ function getCurrentUser() {
     }, []);
 }
 
-export default getCurrentUser;
+export default GetCurrentUser;

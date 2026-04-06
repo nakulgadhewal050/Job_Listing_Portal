@@ -54,8 +54,7 @@ function Signup() {
       const result = await axios.post(`${serverUrl}/api/auth/signup`, {
         fullname: name, email, password, phone, role
       }, { withCredentials: true });
-      localStorage.setItem('jwt', result.data.token);
-      dispatch(setUserData(result.data.user))
+      dispatch(setUserData(result.data))
       console.log("signup successfully")
       setErrors({});
       setLoading(false);
@@ -92,8 +91,7 @@ function Signup() {
         role: role
       }, { withCredentials: true });
       
-      localStorage.setItem('jwt', data.token);
-      dispatch(setUserData(data.user));
+      dispatch(setUserData(data));
       console.log("Google signup successful");
       
       toast.success('Signup successful!', {
@@ -355,4 +353,4 @@ function Signup() {
 }
 
 
-export default Signup
+export default Signup 

@@ -57,11 +57,7 @@ export default function Nav() {
 
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem('jwt');
-      await axios.post(`${serverUrl}/api/auth/logout`, null, {
-        withCredentials: true,
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      await axios.post(`${serverUrl}/api/auth/logout`, null, { withCredentials: true })
       dispatch(setUserData(null))
       localStorage.removeItem('jwt')
       navigate('/login')

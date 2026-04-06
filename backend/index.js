@@ -17,12 +17,12 @@ app.use(urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
 app.use(
   cors({
     origin: function (origin, callback) {
       const allowedOrigins = [
         process.env.BASE_URL, 
+  
       
       ].filter(Boolean);
 

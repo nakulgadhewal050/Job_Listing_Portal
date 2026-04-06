@@ -29,13 +29,9 @@ function MyApplication() {
   const fetchMyApplications = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('jwt');
       const res = await axios.get(
         `${serverUrl}/api/applications/my-applications`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           withCredentials: true,
         },
       );
@@ -58,12 +54,8 @@ function MyApplication() {
     }
 
     try {
-      const token = localStorage.getItem('jwt');
       await axios.delete(`${serverUrl}/api/applications/${id}`, {
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
       toast.success("Application deleted successfully");
       fetchMyApplications();
