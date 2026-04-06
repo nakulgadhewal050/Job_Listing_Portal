@@ -44,13 +44,7 @@ function Login() {
         email, password
       }, { withCredentials: true });
 
-      const token = result.data?.token
-      if (token) {
-        localStorage.setItem('authToken', token)
-      }
-
-      const { token: _token, ...user } = result.data || {}
-      dispatch(setUserData(user))
+      dispatch(setUserData(result.data))
       console.log("login successfully")
       setErrors({});
       setLoading(false);
@@ -91,13 +85,7 @@ function Login() {
         fullname: result.user.displayName,
       }, { withCredentials: true });
 
-      const token = data?.token
-      if (token) {
-        localStorage.setItem('authToken', token)
-      }
-
-      const { token: _token, ...user } = data || {}
-      dispatch(setUserData(user));
+      dispatch(setUserData(data));
 
       toast.success('Login successful!', {
         position: "top-right",

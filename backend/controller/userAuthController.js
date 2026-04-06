@@ -2,24 +2,6 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/token.js";
 
-const getTokenCookieOptions = (maxAge = 7 * 24 * 60 * 60 * 1000) => {
-    const isProduction = process.env.NODE_ENV === "production";
-
-    return {
-        secure: isProduction,
-        sameSite: isProduction ? "none" : "lax",
-        httpOnly: true,
-        path: "/",
-        maxAge
-    };
-};
-
-const sanitizeUser = (user) => {
-    const userObj = user.toObject ? user.toObject() : { ...user };
-    delete userObj.password;
-    return userObj;
-};
-
 export const Signup = async (req, res) => {
     try {
         const { fullname, email, password, phone, role } = req.body;
@@ -60,9 +42,14 @@ export const Signup = async (req, res) => {
 
         const token = await generateToken(user._id);
 
-        res.cookie("token", token, getTokenCookieOptions())
+        res.cookie("token", token, {
+            secure: true,
+            sameSite: "none",
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
 
-        return res.status(201).json({ ...sanitizeUser(user), token });
+        res.status(201).json(user);
 
     } catch (error) {
         console.log("signin error:", error);
@@ -88,10 +75,15 @@ export const Login = async (req, res) => {
 
         const token = await generateToken(user._id);
 
-        res.cookie("token", token, getTokenCookieOptions())
+        res.cookie("token", token, {
+            secure: true,
+            sameSite: "none",
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
 
 
-        return res.status(200).json({ ...sanitizeUser(user), token });
+        return res.status(200).json(user);
 
     } catch (error) {
 
@@ -101,7 +93,12 @@ export const Login = async (req, res) => {
 
 export const Logout = async (req, res) => {
     try {
-        res.clearCookie("token", getTokenCookieOptions(0))
+        res.cookie("token", "", {
+            secure: true,
+            sameSite: "none",
+            httpOnly: true,
+            maxAge: 0
+        })
         res.status(200).json({ message: "Logged out successfully" })
     } catch (error) {
         res.status(500).json({ message: "Error in logout" })
@@ -116,9 +113,15 @@ export const googleAuth = async (req, res) => {
         if (user) {
             const token = await generateToken(user._id);
 
-            res.cookie("token", token, getTokenCookieOptions())
+            res.cookie("token", token, {
+                secure: true,
+                sameSite: "none",
+                httpOnly: true,
+                path: "/",
+                maxAge: 7 * 24 * 60 * 60 * 1000
+            })
 
-            return res.status(200).json({ ...sanitizeUser(user), token });
+            return res.status(200).json(user);
         }
 
         if (!role) {
@@ -134,10 +137,16 @@ export const googleAuth = async (req, res) => {
 
         const token = await generateToken(user._id);
 
-        res.cookie("token", token, getTokenCookieOptions())
+        res.cookie("token", token, {
+            secure: true,
+            sameSite: "none",
+            httpOnly: true,
+            path: "/",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
 
 
-        return res.status(200).json({ ...sanitizeUser(user), token });
+        return res.status(200).json(user);
 
     } catch (error) {
         console.error("Google Auth Error:", error);

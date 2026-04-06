@@ -59,7 +59,7 @@ export default function Nav() {
     try {
       await axios.post(`${serverUrl}/api/auth/logout`, null, { withCredentials: true })
       dispatch(setUserData(null))
-      localStorage.removeItem('authToken')
+      localStorage.removeItem('jwt')
       navigate('/login')
     } catch (err) {
       console.warn('logout error', err)

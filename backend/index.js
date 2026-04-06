@@ -22,7 +22,6 @@ app.use(
     origin: function (origin, callback) {
       const allowedOrigins = [
         process.env.BASE_URL, 
-        "http://localhost:5173"
   
       
       ].filter(Boolean);

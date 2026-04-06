@@ -3,12 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export const protect = async (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization || "";
-        const bearerToken = authHeader.toLowerCase().startsWith("bearer ")
-            ? authHeader.slice(7).trim()
-            : null;
-        const token = req.cookies.token || bearerToken || req.headers["x-auth-token"];
-
+        const token = req.cookies.token;
         if (!token){
             return res.status(401).json({ message: 'token not found' });
         }
