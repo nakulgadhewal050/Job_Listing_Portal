@@ -43,9 +43,9 @@ export const Signup = async (req, res) => {
         const token = await generateToken(user._id);
 
         res.cookie("token", token, {
-            secure: true,
+            secure: false,
             sameSite: "none",
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
@@ -76,9 +76,9 @@ export const Login = async (req, res) => {
         const token = await generateToken(user._id);
 
         res.cookie("token", token, {
-            secure: true,
+            secure: false,
             sameSite: "none",
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
@@ -94,9 +94,9 @@ export const Login = async (req, res) => {
 export const Logout = async (req, res) => {
     try {
         res.cookie("token", "", {
-            secure: true,
+            secure: false,
             sameSite: "none",
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 0
         })
         res.status(200).json({ message: "Logged out successfully" })
@@ -114,9 +114,9 @@ export const googleAuth = async (req, res) => {
             const token = await generateToken(user._id);
 
             res.cookie("token", token, {
-                secure: true,
+                secure: false,
                 sameSite: "none",
-                httpOnly: true,
+                httpOnly: false,
                 path: "/",
                 maxAge: 7 * 24 * 60 * 60 * 1000
             })
@@ -138,9 +138,9 @@ export const googleAuth = async (req, res) => {
         const token = await generateToken(user._id);
 
         res.cookie("token", token, {
-            secure: true,
+            secure: false,
             sameSite: "none",
-            httpOnly: true,
+            httpOnly: false,
             path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
