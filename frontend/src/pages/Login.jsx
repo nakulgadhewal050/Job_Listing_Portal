@@ -46,7 +46,7 @@ function Login() {
 
       // Token localStorage mein save karo
       localStorage.setItem('jwt', result.data.token);  
-dispatch(setUserData(result.data.user));
+      dispatch(setUserData(result.data.user));
       console.log("login successfully")
       setErrors({});
       setLoading(false);
